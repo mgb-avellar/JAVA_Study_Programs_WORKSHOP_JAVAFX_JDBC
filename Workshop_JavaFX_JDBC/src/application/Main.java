@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    // Vide classe MainViewController para informações sobre a linha seguinte
+
+    private static Scene mainScene;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
@@ -25,12 +29,20 @@ public class Main extends Application {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
-        Scene mainScene = new Scene(scrollPane);
+        mainScene = new Scene(scrollPane);  // Por causa da primeira linha, tirei o 'Scene' que estava aqui
         primaryStage.setTitle("Sample JavaFX application");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 
+    // Para completar o código imposto pela linha 'private static Scene mainScene;'
+    //   devo criar um get para poder acessar a mainScene em outras classes, no caso
+    //   a MainViewController
+
+    public static Scene getMainScene() {
+
+        return mainScene;
+    }
 
     public static void main(String[] args) {
         launch(args);
