@@ -62,7 +62,9 @@ public class DepartmentListController implements Initializable {
         //System.out.println("onBtNewAction");
 
         Stage parentStage = Utils.currentStage(actionEvent);
-        createDialogForm("/gui/DepartmentForm.fxml", parentStage);
+        // Para colocar um novo departamento, devo instanciá-lo e modificar o 'createDialogForm()'
+        Department obj = new Department();
+        createDialogForm(obj,"/gui/DepartmentForm.fxml", parentStage); // Entra 'obj'
 
         /*
         ps. note que agora o método recebe um 'ActionEvent actionEvent'.
@@ -106,13 +108,12 @@ public class DepartmentListController implements Initializable {
         tableViewDepartment.setItems(departmentObservableList);
     }
 
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Department obj, String absoluteName, Stage parentStage) {
 
         /*
            Esse método será chamado pelo botão 'New' da janela de departamento,
            o que implica em chamá-lo no método 'onBtNewAction()' acima.
          */
-
 
         // Vamos instanciar a janela de diálogo
 
@@ -129,6 +130,14 @@ public class DepartmentListController implements Initializable {
                ps. janela modal significa que enquanto você não a fechar, você não acessa
                    a janela anterior.
              */
+
+            /*
+               Esse método agora precisa injetar o Department obj no controlador da nossa tela de formulário
+            */
+
+            DepartmentFormController departmentFormController = fxmlLoader.getController();
+            departmentFormController.setDepartment(obj);
+            departmentFormController.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Enter department data");
