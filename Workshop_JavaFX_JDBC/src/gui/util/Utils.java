@@ -17,4 +17,16 @@ public class Utils {
 
         // Note os dois castings aqui
     }
+
+    public static Integer tryParseToInt (String str) {
+
+        try {
+            return Integer.parseInt(str);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+
+        // esse método vai nos ajudar a criar novos departamentos ou atualizar os dados de um
+    }
 }

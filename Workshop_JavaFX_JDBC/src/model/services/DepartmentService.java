@@ -36,9 +36,24 @@ public class DepartmentService {
        return list;
 
          */
+    }
 
+    public void saveOrUpdate(Department department) {
 
+        if (department.getId() == null) {
 
+            departmentDAO.insert(department);
+        }
+        else {
+
+            departmentDAO.update(department);
+        }
+
+        /*
+          Método que testa se queremos salvar um departamento novo ou
+          atualizar um departamento existente.
+         */
 
     }
+
 }

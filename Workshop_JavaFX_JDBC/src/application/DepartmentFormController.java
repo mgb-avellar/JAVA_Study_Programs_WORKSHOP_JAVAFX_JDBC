@@ -1,12 +1,18 @@
 package application;
 
+import db.DbException;
+import gui.util.Alerts;
 import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Department;
+import model.services.DepartmentService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +29,10 @@ public class DepartmentFormController implements Initializable {
     // Criando a dependência com a classe Department
 
     private Department department;
+
+    // Criando a dependência com a classe DepartmentService
+
+    private DepartmentService departmentService;
 
     // Aqui vai a declaração dos componentes da tela
 
@@ -43,6 +53,12 @@ public class DepartmentFormController implements Initializable {
         this.department = department;
     }
 
+    // Método para tratar o novo department service
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
     public void updateFormData() {
 
         // Programação defensiva
@@ -60,12 +76,59 @@ public class DepartmentFormController implements Initializable {
     // Métodos para o tratamento dos botões.
 
     @FXML
-    public void onBtSaveAction() {
-        System.out.println("onBtSaveAction");
+    public void onBtSaveAction(ActionEvent event) {
+        //System.out.println("onBtSaveAction");
+
+        /*
+         Agora vamos ter que atualizar essa ação para salvar o novo departamento no banco de dados.
+         Note que o usuário vai digitar apenas o nome do novo departamento na tela, pois o campo
+         Id estará travado (nosso sistema encontrará automaticamente esse valor). Quando ele clicar
+         em Save, o departamento será salvo no banco.
+         */
+
+        // Programação defensiva
+
+        if (department == null) {
+
+            throw new IllegalStateException("Department was null");
+        }
+        if (departmentService == null) {
+
+            throw new IllegalStateException("Department service was null");
+        }
+
+        try {
+            // operações com banco de dados sempre podem gerar exceções, por isso o try-catch
+            department = getFormData();
+            departmentService.saveOrUpdate(department);
+            Utils.currentStage(event).close();
+            // A linha logo acima fecha a janela após salvamento. Note que inserimos um ActionEvent
+            //   na chamada do método
+        }
+        catch (DbException e) {
+
+            Alerts.showAlert("Error saving object", null, e.getMessage(), Alert.AlertType.ERROR);
+        }
+        // ps. para que isso funcione, preciso injetar uma instância de DepartmentService
+        //     em DepartmentListController
     }
+
+    private Department getFormData() {
+
+        Department obj = new Department();
+        obj.setId(Utils.tryParseToInt(txtId.getText()));
+        obj.setName(txtName.getText());
+
+        return obj;
+    }
+
     @FXML
-    public void onBtCancelAction() {
-        System.out.println("onBtCancelAction");
+    public void onBtCancelAction(ActionEvent event) {
+        //System.out.println("onBtCancelAction");
+
+        Utils.currentStage(event).close();
+
+        // atualização do método para cancelar uma operação de salvamento de novo departamento
     }
 
     @Override

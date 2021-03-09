@@ -137,6 +137,10 @@ public class DepartmentListController implements Initializable {
 
             DepartmentFormController departmentFormController = fxmlLoader.getController();
             departmentFormController.setDepartment(obj);
+            departmentFormController.setDepartmentService(new DepartmentService());
+            /*
+            Para a linha acima, ver comentário em 'onBtSaveAction' de 'DepartmentFormController'
+             */
             departmentFormController.updateFormData();
 
             Stage dialogStage = new Stage();
