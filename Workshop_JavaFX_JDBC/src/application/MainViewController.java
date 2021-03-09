@@ -15,6 +15,7 @@ import model.services.DepartmentService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class MainViewController implements Initializable {
 
@@ -36,12 +37,36 @@ public class MainViewController implements Initializable {
     @FXML
     public void onMenuItemDepartmentAction() {
         //System.out.println("onMenuItemDepartmentAction");
-        loadView2("/gui/DepartmentList.fxml");
+        //loadView2("/gui/DepartmentList.fxml");
+
+        /*
+            Nessa etapa da construção de nossa aplicação, vamos atualizar a rotina loadView()
+            passando a inicialização do controle DepartmentListController que fizemos temporariamente
+            na rotina loadView2() como parâmetro da função loadView() usando expressões lambda.
+            Com isso, poderemos deletar a função loadView2() do nosso código.
+            Então, aqui eu retorno à chamada de loadView() já passando uma função como parâmetro.
+            Além disso, como o método loadView() agora recebe dois parâmetros, preciso atualizar
+            também a ação da tela About, colocando mais um parâmetro em seu loadView(). (Vide a seguir.)
+            Por fim, note que precisaremos atualizar o próprio método de loadView() para receber a
+            função de inicialização, por meio de um Consumer.
+        */
+
+        loadView("/gui/DepartmentList.fxml", (DepartmentListController controller) ->
+            {
+                controller.setDepartmentService(new DepartmentService());
+                controller.updateTableViewDepartment();
+            }
+        );
+
     }
     @FXML
     public void onMenuItemAboutAction() {
         //System.out.println("onMenuItemAboutAction");
-        loadView("/gui/About.fxml");
+        loadView("/gui/About.fxml", x -> {});
+        /*
+        Note que como a tela About não tem nada de especial, p. ex., não precisa carregar uma lista,
+        o parâmetro de inicialização da expressão lambda é uma função vazia.
+         */
     }
 
 
@@ -50,10 +75,9 @@ public class MainViewController implements Initializable {
 
     }
 
-
     // Vamos criar um método que carrega uma nova tela
 
-    private synchronized void loadView(String absoluteName) {
+    private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absoluteName));
 
@@ -84,36 +108,29 @@ public class MainViewController implements Initializable {
             os filhos da janela que eu estiver abrindo.
              */
 
-        }
-        catch (IOException e) {
-            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
+            /*
+            Depois de carregar a tela com os comandos acima, vamos acrescentar um comando para ativar
+            a função passada como Consumer.
+             */
 
-    // Vamos criar um método temporário que carrega nossa lista de departamentos na tela correspondente
+            T controller = fxmlLoader.getController();
+            initializingAction.accept(controller);
 
-    private synchronized void loadView2(String absoluteName) {
-        try {
+            /*
+            O que tem que ficar claro das duas linhas acima é que o initializingAction executará
+            o que passamos como função lambda em loadView().
+            No caso da atualização da tela Department, executará os seguintes comandos:
 
-            // Criando a janela
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-            VBox newVBox = loader.load();
+                DepartmentListController controller;
+                controller.setDepartmentService(new DepartmentService());
+                controller.updateTableViewDepartment();
 
-            Scene mainScene = Main.getMainScene();
-            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+            No caso da tela About, executará:
 
-            Node mainMenu = mainVBox.getChildren().get(0);
-            mainVBox.getChildren().clear();
-            mainVBox.getChildren().add(mainMenu);
-            mainVBox.getChildren().addAll(newVBox.getChildren());
+                {}
 
-            // A seguir, injeto a dependência do service no controle e atualizo a tabela da janela
-            //  com a lista com elementos inseridos.
-            // Para que tudo funcione, preciso modificar o arquivo 'module-info.java' para que o javafx
-            //  consiga abrir o módulo de serviços
-            DepartmentListController controller = loader.getController();
-            controller.setDepartmentService(new DepartmentService());
-            controller.updateTableViewDepartment();
+             */
+
         }
         catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
