@@ -1,6 +1,7 @@
 package application;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
     // Criando a dependência para os department services
 
@@ -132,7 +133,8 @@ public class DepartmentListController implements Initializable {
              */
 
             /*
-               Esse método agora precisa injetar o Department obj no controlador da nossa tela de formulário
+               Esse método agora precisa injetar o Department obj no controlador da nossa tela de
+               formulário.
             */
 
             DepartmentFormController departmentFormController = fxmlLoader.getController();
@@ -141,6 +143,9 @@ public class DepartmentListController implements Initializable {
             /*
             Para a linha acima, ver comentário em 'onBtSaveAction' de 'DepartmentFormController'
              */
+
+            departmentFormController.subscribeDataChangeListenerList(this); // Inscrição na lista
+
             departmentFormController.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -158,5 +163,20 @@ public class DepartmentListController implements Initializable {
         }
     }
 
+    /*
+    Em se falando da atualização automática da tela de departamento quando inserimos um novo departamento,
+    essa classe é o que chamamos de 'observer' ou 'listener', ou seja, aquela que receber (ou ouve) o evento.
+    Para isso, essa classe deve implementar também a interface 'DataChangeListener' e implementar seu método.
+    Além disso, em 'createDialogForm' devo inscrever esta classe (objeto) na lista de ouvintes do evento emitido.
+    */
+
+    @Override
+    public void onDataChanged() {
+
+        updateTableViewDepartment();
+        /*
+        Ao atualizar a tela, o novo departamento inserido aparecerá automaticamente na tela.
+         */
+    }
 }
 

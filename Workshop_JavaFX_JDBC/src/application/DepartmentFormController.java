@@ -1,6 +1,7 @@
 package application;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -15,6 +16,8 @@ import model.entities.Department;
 import model.services.DepartmentService;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
@@ -33,6 +36,15 @@ public class DepartmentFormController implements Initializable {
     // Criando a dependência com a classe DepartmentService
 
     private DepartmentService departmentService;
+
+    /*
+    Em se falando da atualização automática da tela de departamento quando inserimos um novo departamento,
+    essa classe é o que chamamos de 'subject', ou seja, aquela que emite o evento. Para isso, cria-se
+    uma lista de objetos interessados em receber o evento e um método de subscribers para que objetos
+    se inscrevam na lista.
+     */
+
+    private List<DataChangeListener> dataChangeListenerList = new ArrayList<>();
 
     // Aqui vai a declaração dos componentes da tela
 
@@ -57,6 +69,16 @@ public class DepartmentFormController implements Initializable {
 
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
+    }
+
+    public void subscribeDataChangeListenerList(DataChangeListener listener) {
+
+        dataChangeListenerList.add(listener);
+        /*
+         Médodo de inscrição na lista de objetos que receberão o evento disparado;
+         após o salvamento do novo departamento for efetuado com sucesso, um método deve
+         notificar os meus listeners. Esse método será chamado dentro de 'onBtSaveAction'.
+         */
     }
 
     public void updateFormData() {
@@ -101,6 +123,9 @@ public class DepartmentFormController implements Initializable {
             // operações com banco de dados sempre podem gerar exceções, por isso o try-catch
             department = getFormData();
             departmentService.saveOrUpdate(department);
+
+            notifyDataChangeListeners();  // Método para notificação dos listeners
+
             Utils.currentStage(event).close();
             // A linha logo acima fecha a janela após salvamento. Note que inserimos um ActionEvent
             //   na chamada do método
@@ -111,6 +136,14 @@ public class DepartmentFormController implements Initializable {
         }
         // ps. para que isso funcione, preciso injetar uma instância de DepartmentService
         //     em DepartmentListController
+    }
+
+    private void notifyDataChangeListeners() {
+
+        for (DataChangeListener listener : dataChangeListenerList) {
+
+            listener.onDataChanged();
+        }
     }
 
     private Department getFormData() {
@@ -141,4 +174,6 @@ public class DepartmentFormController implements Initializable {
         Constraints.setTextFieldInteger(txtId);
         Constraints.setTextFieldMaxLength(txtName, 30);
     }
+
+
 }
