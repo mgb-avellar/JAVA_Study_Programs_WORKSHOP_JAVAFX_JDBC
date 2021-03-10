@@ -13,12 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Department;
+import model.exceptions.ValidationException;
 import model.services.DepartmentService;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DepartmentFormController implements Initializable {
 
@@ -122,6 +121,10 @@ public class DepartmentFormController implements Initializable {
         try {
             // operações com banco de dados sempre podem gerar exceções, por isso o try-catch
             department = getFormData();
+            /*
+            Note que após a questão do Validation Exception, o getFormData pode lançar
+            exceções também e precisamos tratar disso no catch.
+             */
             departmentService.saveOrUpdate(department);
 
             notifyDataChangeListeners();  // Método para notificação dos listeners
@@ -129,6 +132,10 @@ public class DepartmentFormController implements Initializable {
             Utils.currentStage(event).close();
             // A linha logo acima fecha a janela após salvamento. Note que inserimos um ActionEvent
             //   na chamada do método
+        }
+        catch (ValidationException e) {
+
+            setErrorMessages(e.getErrors());
         }
         catch (DbException e) {
 
@@ -148,9 +155,28 @@ public class DepartmentFormController implements Initializable {
 
     private Department getFormData() {
 
+        /*
+        Aqui que precisamos verificar o código e lanças as exceções do ValidationException;
+        para efeitos da aula, vamos apenas verificar se txtName é vazio ou não.
+         */
+
         Department obj = new Department();
+
+        ValidationException validationException = new ValidationException("Validation error");
+
         obj.setId(Utils.tryParseToInt(txtId.getText()));
+
+        if (txtName.getText() == null || txtName.getText().trim().equals("")) {
+
+            validationException.addError("name", "Field can't be empty.");
+        }
+
         obj.setName(txtName.getText());
+
+        if (validationException.getErrors().size() > 0) {
+
+            throw validationException;
+        }
 
         return obj;
     }
@@ -175,5 +201,18 @@ public class DepartmentFormController implements Initializable {
         Constraints.setTextFieldMaxLength(txtName, 30);
     }
 
+    private void setErrorMessages(Map<String, String> errors) {
 
+        /*
+        Esse método é responsável por mostrar os erros (VelidationExceptions) na tela.
+         */
+
+        Set<String> fields = errors.keySet();
+
+        if(fields.contains("name")) {
+
+            labelErrorName.setText(errors.get("name"));
+        }
+
+    }
 }
