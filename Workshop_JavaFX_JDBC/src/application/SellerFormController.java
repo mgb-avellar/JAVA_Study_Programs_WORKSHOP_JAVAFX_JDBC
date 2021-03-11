@@ -8,15 +8,14 @@ import gui.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.entities.Seller;
 import model.exceptions.ValidationException;
 import model.services.SellerService;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class SellerFormController implements Initializable {
@@ -52,7 +51,19 @@ public class SellerFormController implements Initializable {
     @FXML
     private TextField txtName;
     @FXML
+    private TextField txtEmail;
+    @FXML
+    private DatePicker dpBirthDate;
+    @FXML
+    private TextField txtBaseSalary;
+    @FXML
     private Label labelErrorName;
+    @FXML
+    private Label labelErrorEmail;
+    @FXML
+    private Label labelErrorBirthDate;
+    @FXML
+    private Label labelErrorBaseSalary;
     @FXML
     private Button btSave;
     @FXML
@@ -90,6 +101,19 @@ public class SellerFormController implements Initializable {
 
         txtId.setText(String.valueOf(seller.getId()));
         txtName.setText(seller.getName());
+        txtEmail.setText(seller.getEmail());
+        Locale.setDefault(Locale.US);
+        txtBaseSalary.setText(String.format("%.2f", seller.getBaseSalary()));
+        if (seller.getBirthDate() != null) {
+            dpBirthDate.setValue(LocalDate.ofInstant(seller.getBirthDate().toInstant(), ZoneId.systemDefault()));
+        }
+
+        /*
+        A questão de dpBirthDate é complicada, pois o seller.getBirthDate trabalha com a dada do Java.utils,
+        enquanto o dpBirthDate.setValue trabalha com o Local Date.
+        O que fizemos acima foi passar do formato Java.utils para o LocalDate incluindo o formato da máquina
+        localmente (ZoneId ...).
+         */
 
         // A variável txtXXX trabalha com String, por isso o String.valueOf(...)
     }
@@ -198,7 +222,10 @@ public class SellerFormController implements Initializable {
 
     private void initializeNodes() {
         Constraints.setTextFieldInteger(txtId);
-        Constraints.setTextFieldMaxLength(txtName, 30);
+        Constraints.setTextFieldMaxLength(txtName, 70);
+        Constraints.setTextFieldDouble(txtBaseSalary);
+        Constraints.setTextFieldMaxLength(txtEmail, 60);
+        Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
     }
 
     private void setErrorMessages(Map<String, String> errors) {
