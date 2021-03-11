@@ -53,7 +53,15 @@ public class DepartmentService {
           Método que testa se queremos salvar um departamento novo ou
           atualizar um departamento existente.
          */
+    }
 
+    /*
+    Vamos criar um método para remover um departamento.
+     */
+
+    public void removeDepartment(Department obj) {
+
+        departmentDAO.deleteById(obj.getId());
     }
 
 }
