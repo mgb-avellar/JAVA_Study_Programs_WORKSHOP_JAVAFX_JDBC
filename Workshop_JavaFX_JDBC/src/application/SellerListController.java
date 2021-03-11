@@ -149,49 +149,49 @@ public class SellerListController implements Initializable, DataChangeListener {
 
         // Vamos instanciar a janela de diálogo
 
-//        try {
-//
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane = fxmlLoader.load();
-//
-//            /*
-//               Quando preciso carregar uma janela modal na frente de uma janela existente,
-//               preciso instanciar um novo Stage: um palco na frente do outro.
-//               No entanto, o novo palco precisa ser ccnfigurado, o que fazemos nas linhas
-//               abaixo.
-//               ps. janela modal significa que enquanto você não a fechar, você não acessa
-//                   a janela anterior.
-//             */
-//
-//            /*
-//               Esse método agora precisa injetar o Seller obj no controlador da nossa tela de
-//               formulário.
-//            */
-//
-//            SellerFormController sellerFormController = fxmlLoader.getController();
-//            sellerFormController.setSeller(obj);
-//            sellerFormController.setSellerService(new SellerService());
-//            /*
-//            Para a linha acima, ver comentário em 'onBtSaveAction' de 'SellerFormController'
-//             */
-//
-//            sellerFormController.subscribeDataChangeListenerList(this); // Inscrição na lista
-//
-//            sellerFormController.updateFormData();
-//
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Enter seller data");
-//            dialogStage.setScene(new Scene(pane));
-//            dialogStage.setResizable(false);
-//            dialogStage.initOwner(parentStage);
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.showAndWait();
-//
-//        }
-//        catch (IOException e) {
-//
-//            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
-//        }
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = fxmlLoader.load();
+
+            /*
+               Quando preciso carregar uma janela modal na frente de uma janela existente,
+               preciso instanciar um novo Stage: um palco na frente do outro.
+               No entanto, o novo palco precisa ser ccnfigurado, o que fazemos nas linhas
+               abaixo.
+               ps. janela modal significa que enquanto você não a fechar, você não acessa
+                   a janela anterior.
+             */
+
+            /*
+               Esse método agora precisa injetar o Seller obj no controlador da nossa tela de
+               formulário.
+            */
+
+            SellerFormController sellerFormController = fxmlLoader.getController();
+            sellerFormController.setSeller(obj);
+            sellerFormController.setSellerService(new SellerService());
+            /*
+            Para a linha acima, ver comentário em 'onBtSaveAction' de 'SellerFormController'
+             */
+
+            sellerFormController.subscribeDataChangeListenerList(this); // Inscrição na lista
+
+            sellerFormController.updateFormData();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Enter seller data");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+
+        }
+        catch (IOException e) {
+
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     /*
