@@ -22,6 +22,7 @@ import model.services.SellerService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -52,10 +53,16 @@ public class SellerListController implements Initializable, DataChangeListener {
     @FXML
     private TableColumn<Seller, String> tableColumnName;
     @FXML
+    private TableColumn<Seller, String> tableColumnEmail;
+    @FXML
+    private TableColumn<Seller, Date> tableColumnBirthDate;
+    @FXML
+    private TableColumn<Seller, Double> tableColumnBaseSalary;
+    @FXML
     private Button btNew;
 
     /*
-    A declaração de atributo a seguir nos ajudará a atualizar um departamento, criando vários
+    A declaração de atributo a seguir nos ajudará a atualizar um vendedor, criando vários
     botões para atualização, um para cada linha da minha tabela.
     (Pegaremos um método pronto para isso chamado initEditButtons, que deverá ser invocado em
     updateTableViewSeller(). )
@@ -65,8 +72,8 @@ public class SellerListController implements Initializable, DataChangeListener {
     private TableColumn<Seller, Seller> tableColumnEDIT;
 
     /*
-    Faremos uma codificação para remover um departamento do banco de dados, de modo bastante similar
-    ao que fizemos para a atualização dos departamentos.
+    Faremos uma codificação para remover um vendedor do banco de dados, de modo bastante similar
+    ao que fizemos para a atualização dos vendedores.
      */
 
     @FXML
@@ -80,7 +87,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         //System.out.println("onBtNewAction");
 
         Stage parentStage = Utils.currentStage(actionEvent);
-        // Para colocar um novo departamento, devo instanciá-lo e modificar o 'createDialogForm()'
+        // Para colocar um novo vendedor, devo instanciá-lo e modificar o 'createDialogForm()'
         Seller obj = new Seller();
         createDialogForm(obj,"/gui/SellerForm.fxml", parentStage); // Entra 'obj'
 
@@ -107,6 +114,11 @@ public class SellerListController implements Initializable, DataChangeListener {
 
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("BirthDate"));
+        Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
+        tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("BaseSalary"));
+        Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
 
         // As duas linhas abaixo são um macete para que as dimensões da tabela acompanhem a da cena
         //   principal.
@@ -131,7 +143,7 @@ public class SellerListController implements Initializable, DataChangeListener {
     private void createDialogForm(Seller obj, String absoluteName, Stage parentStage) {
 
         /*
-           Esse método será chamado pelo botão 'New' da janela de departamento,
+           Esse método será chamado pelo botão 'New' da janela de vendedor,
            o que implica em chamá-lo no método 'onBtNewAction()' acima.
          */
 
@@ -183,7 +195,7 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     /*
-    Em se falando da atualização automática da tela de departamento quando inserimos um novo departamento,
+    Em se falando da atualização automática da tela de vendedor quando inserimos um novo vendedor,
     essa classe é o que chamamos de 'observer' ou 'listener', ou seja, aquela que receber (ou ouve) o evento.
     Para isso, essa classe deve implementar também a interface 'DataChangeListener' e implementar seu método.
     Além disso, em 'createDialogForm' devo inscrever esta classe (objeto) na lista de ouvintes do evento emitido.
@@ -194,7 +206,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 
         updateTableViewSeller();
         /*
-        Ao atualizar a tela, o novo departamento inserido aparecerá automaticamente na tela.
+        Ao atualizar a tela, o novo vendedor inserido aparecerá automaticamente na tela.
          */
     }
 
