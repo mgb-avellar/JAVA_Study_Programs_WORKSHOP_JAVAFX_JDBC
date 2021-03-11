@@ -19,6 +19,7 @@ import model.services.DepartmentService;
 import model.services.SellerService;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -221,14 +222,47 @@ public class SellerFormController implements Initializable {
 
         ValidationException validationException = new ValidationException("Validation error");
 
+        // Seller id
         obj.setId(Utils.tryParseToInt(txtId.getText()));
 
+        // Seller name
         if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 
             validationException.addError("name", "Field can't be empty.");
         }
 
         obj.setName(txtName.getText());
+
+        // Seller email
+        if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+
+            validationException.addError("email", "Field can't be empty.");
+        }
+
+        obj.setEmail(txtEmail.getText());
+
+        // Seller birthDate
+        if (dpBirthDate.getValue() == null) {
+            validationException.addError("birthDate", "Field can't be empty.");
+        }
+        else {
+
+            Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+
+            obj.setBirthDate(Date.from(instant));
+        }
+
+        // Seller baseSalary
+        if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+
+            validationException.addError("baseSalary", "Field can't be empty.");
+        }
+
+        obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+
+        // Seller department
+        obj.setDepartment(comboBoxDepartment.getValue());
+
 
         if (validationException.getErrors().size() > 0) {
 
@@ -275,6 +309,16 @@ public class SellerFormController implements Initializable {
 
             labelErrorName.setText(errors.get("name"));
         }
+        else {
+            labelErrorName.setText("");
+        }
+
+        // Abaixo codificarei a mesma ideia para os outros campo, mas usando
+        //   operadores ternários em substituição à estrutura if-else
+
+        labelErrorEmail.setText( (fields.contains("email") ? errors.get("email") : "") );
+        labelErrorBaseSalary.setText( (fields.contains("baseSalary") ? errors.get("baseSalary") : "") );
+        labelErrorBirthDate.setText( (fields.contains("birthDate") ? errors.get("birthDate") : "") );
 
     }
 

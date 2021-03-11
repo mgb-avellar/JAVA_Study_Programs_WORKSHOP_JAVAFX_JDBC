@@ -39,6 +39,17 @@ public class Utils {
         // esse método vai nos ajudar a criar novos departamentos ou atualizar os dados de um
     }
 
+    public static Double tryParseToDouble(String str) {
+
+        try {
+            return Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        // esse método vai nos ajudar a criar novos vendedores ou atualizar os dados de um
+    }
+
     /*
     Para a classe Seller e suas operações, precisamos, para adicionar colunas etc, de dois novos
     métodos auxiliares: um para formatar datas e outro para formatar números flutuantes.
