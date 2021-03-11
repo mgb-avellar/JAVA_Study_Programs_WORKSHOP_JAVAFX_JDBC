@@ -41,11 +41,11 @@ public class SellerDaoJDBC implements SellerDAO {
                     Statement.RETURN_GENERATED_KEYS
             );
 
-            st.setString(1 , seller.getSellerName());
-            st.setString(2, seller.getSellerEmail());
-            st.setDate(3, new Date(seller.getSellerBirthDate().getTime())); // Date é o do SQL
-            st.setDouble(4, seller.getSellerBaseSalary());
-            st.setInt(5, seller.getSellerDepartment().getId());
+            st.setString(1 , seller.getName());
+            st.setString(2, seller.getEmail());
+            st.setDate(3, new Date(seller.getBirthDate().getTime())); // Date é o do SQL
+            st.setDouble(4, seller.getBaseSalary());
+            st.setInt(5, seller.getDepartment().getId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -55,7 +55,7 @@ public class SellerDaoJDBC implements SellerDAO {
                 if (rs.next()) {
 
                     int id = rs.getInt(1);
-                    seller.setSellerID(id);
+                    seller.setId(id);
                 }
                 DB.closeResultSet(rs);
             }
@@ -86,12 +86,12 @@ public class SellerDaoJDBC implements SellerDAO {
                             "WHERE id = ? "
             );
 
-            st.setString(1 , seller.getSellerName());
-            st.setString(2, seller.getSellerEmail());
-            st.setDate(3, new Date(seller.getSellerBirthDate().getTime())); // Date é o do SQL
-            st.setDouble(4, seller.getSellerBaseSalary());
-            st.setInt(5, seller.getSellerDepartment().getId());
-            st.setInt(6, seller.getSellerID());
+            st.setString(1 , seller.getName());
+            st.setString(2, seller.getEmail());
+            st.setDate(3, new Date(seller.getBirthDate().getTime())); // Date é o do SQL
+            st.setDouble(4, seller.getBaseSalary());
+            st.setInt(5, seller.getDepartment().getId());
+            st.setInt(6, seller.getId());
 
             st.executeUpdate();
 
@@ -198,13 +198,13 @@ public class SellerDaoJDBC implements SellerDAO {
 
         Seller seller = new Seller();
 
-        seller.setSellerID(rs.getInt("Id"));
-        seller.setSellerName(rs.getString("Name"));
-        seller.setSellerEmail(rs.getString("Email"));
-        seller.setSellerBaseSalary(rs.getDouble("BaseSalary"));
-        seller.setSellerBirthDate(rs.getDate("BirthDate"));
+        seller.setId(rs.getInt("Id"));
+        seller.setName(rs.getString("Name"));
+        seller.setEmail(rs.getString("Email"));
+        seller.setBaseSalary(rs.getDouble("BaseSalary"));
+        seller.setBirthDate(rs.getDate("BirthDate"));
 
-        seller.setSellerDepartment(dep);  // Aqui está a associação com o departamento!!
+        seller.setDepartment(dep);  // Aqui está a associação com o departamento!!
 
         return seller;
     }

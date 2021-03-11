@@ -13,73 +13,74 @@ public class Seller implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer sellerID;
-    private String sellerName;
-    private String sellerEmail;
-    private Date sellerBirthDate;
-    private Double sellerBaseSalary;
+    private Integer id;
+    private String name;
+    private String email;
+    private Date birthDate;
+    private Double baseSalary;
 
-    private Department sellerDepartment;
+    private Department department;
 
     public Seller() {
 
     }
 
     public Seller(Integer sellerID, String sellerName, String sellerEmail, Date sellerBirthDate, Double sellerBaseSalary, Department sellerDepartment) {
-        this.sellerID = sellerID;
-        this.sellerName = sellerName;
-        this.sellerEmail = sellerEmail;
-        this.sellerBirthDate = sellerBirthDate;
-        this.sellerBaseSalary = sellerBaseSalary;
-        this.sellerDepartment = sellerDepartment;
+        this.id = sellerID;
+        this.name = sellerName;
+        this.email = sellerEmail;
+        this.birthDate = sellerBirthDate;
+        this.baseSalary = sellerBaseSalary;
+        this.department = sellerDepartment;
     }
 
-    public Integer getSellerID() {
-        return sellerID;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setSellerID(Integer sellerID) {
-        this.sellerID = sellerID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public String getName() {
+        return name;
     }
 
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSellerEmail() {
-        return sellerEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSellerEmail(String sellerEmail) {
-        this.sellerEmail = sellerEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getSellerBirthDate() {
-        return sellerBirthDate;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setSellerBirthDate(Date sellerBirthDate) {
-        this.sellerBirthDate = sellerBirthDate;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public Double getSellerBaseSalary() {
-        return sellerBaseSalary;
+    public Double getBaseSalary() {
+        return baseSalary;
     }
 
-    public void setSellerBaseSalary(Double sellerBaseSalary) {
-        this.sellerBaseSalary = sellerBaseSalary;
+    public void setBaseSalary(Double baseSalary) {
+        this.baseSalary = baseSalary;
     }
 
-    public Department getSellerDepartment() {
-        return sellerDepartment;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setSellerDepartment(Department sellerDepartment) {
-        this.sellerDepartment = sellerDepartment;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override
@@ -87,23 +88,23 @@ public class Seller implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return sellerID.equals(seller.sellerID);
+        return id.equals(seller.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sellerID);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Seller [" +
-                "sellerID: " + sellerID +
-                ", sellerName: '" + sellerName + '\'' +
-                ", sellerEmail: '" + sellerEmail + '\'' +
-                ", sellerBirthDate: " + sellerBirthDate +
-                ", sellerBaseSalary: " + sellerBaseSalary +
-                ", sellerDepartment: " + sellerDepartment +
+                "sellerID: " + id +
+                ", sellerName: '" + name + '\'' +
+                ", sellerEmail: '" + email + '\'' +
+                ", sellerBirthDate: " + birthDate +
+                ", sellerBaseSalary: " + baseSalary +
+                ", sellerDepartment: " + department +
                 ']';
     }
 }
