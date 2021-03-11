@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Seller;
+import model.services.DepartmentService;
 import model.services.SellerService;
 
 import java.io.IOException;
@@ -170,11 +171,15 @@ public class SellerListController implements Initializable, DataChangeListener {
 
             SellerFormController sellerFormController = fxmlLoader.getController();
             sellerFormController.setSeller(obj);
-            sellerFormController.setSellerService(new SellerService());
+            sellerFormController.setServices(new SellerService(), new DepartmentService());
             /*
-            Para a linha acima, ver comentário em 'onBtSaveAction' de 'SellerFormController'
+            Para a linha acima, ver comentário em 'onBtSaveAction' de 'SellerFormController'.
+            (Atualização do comentário após todos os procesimentos para inserção de um vendedor:
+            ver comentário na classe SellerFormController no método setServices(...).)
+            O mesmo vale para a próxima linha de código: sellerFormController.loadAssociatedObjects();
              */
 
+            sellerFormController.loadAssociatedObjects();
             sellerFormController.subscribeDataChangeListenerList(this); // Inscrição na lista
 
             sellerFormController.updateFormData();
@@ -190,6 +195,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         }
         catch (IOException e) {
 
+            e.printStackTrace();
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }

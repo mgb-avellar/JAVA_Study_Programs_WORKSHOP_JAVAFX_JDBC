@@ -5,12 +5,17 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Callback;
+import model.entities.Department;
 import model.entities.Seller;
 import model.exceptions.ValidationException;
+import model.services.DepartmentService;
 import model.services.SellerService;
 
 import java.net.URL;
@@ -35,6 +40,12 @@ public class SellerFormController implements Initializable {
 
     private SellerService sellerService;
 
+    // Criando a dependência com a classe DepartmentService (necessário para
+    //    podermos escolher o departamento que atribuiremos ao novo vendedor
+    //    adicionado; faremos isso via ComboBox)
+
+    private DepartmentService departmentService;
+
     /*
     Em se falando da atualização automática da tela de vendedor quando inserimos um novo vendedor,
     essa classe é o que chamamos de 'subject', ou seja, aquela que emite o evento. Para isso, cria-se
@@ -56,6 +67,10 @@ public class SellerFormController implements Initializable {
     private DatePicker dpBirthDate;
     @FXML
     private TextField txtBaseSalary;
+
+    @FXML
+    private ComboBox<Department> comboBoxDepartment;  // Para escolhermos o departamento do vendedor adicionado
+
     @FXML
     private Label labelErrorName;
     @FXML
@@ -69,6 +84,8 @@ public class SellerFormController implements Initializable {
     @FXML
     private Button btCancel;
 
+    private ObservableList<Department> departmentObservableList;
+
     // Método para tratar o novo seller
 
     public void setSeller(Seller seller) {
@@ -77,8 +94,16 @@ public class SellerFormController implements Initializable {
 
     // Método para tratar o novo seller service
 
-    public void setSellerService(SellerService sellerService) {
+    public void setServices(SellerService sellerService, DepartmentService departmentService) {
         this.sellerService = sellerService;
+        this.departmentService = departmentService;
+
+        /*
+        Esse método também precisa ser atualizado para a injeção da dependência com
+        o departamento. Inclusive o nome do método foi mudado (antigo: 'setSellerService')
+        Precisaremos também de um método loadAssociatedObjects() (ver ao final desta classe)
+        para ser chamado no método createDialogForm(...) da classe SellerListController.
+         */
     }
 
     public void subscribeDataChangeListenerList(DataChangeListener listener) {
@@ -106,6 +131,14 @@ public class SellerFormController implements Initializable {
         txtBaseSalary.setText(String.format("%.2f", seller.getBaseSalary()));
         if (seller.getBirthDate() != null) {
             dpBirthDate.setValue(LocalDate.ofInstant(seller.getBirthDate().toInstant(), ZoneId.systemDefault()));
+        }
+
+        if (seller.getDepartment() == null) {
+
+            comboBoxDepartment.getSelectionModel().selectFirst();
+        }
+        else {
+            comboBoxDepartment.setValue(seller.getDepartment());
         }
 
         /*
@@ -226,6 +259,8 @@ public class SellerFormController implements Initializable {
         Constraints.setTextFieldDouble(txtBaseSalary);
         Constraints.setTextFieldMaxLength(txtEmail, 60);
         Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
+
+        initializeComboBoxDepartment();
     }
 
     private void setErrorMessages(Map<String, String> errors) {
@@ -242,4 +277,37 @@ public class SellerFormController implements Initializable {
         }
 
     }
+
+    public void loadAssociatedObjects() {
+
+        if (departmentService == null) {
+
+            throw new IllegalStateException("Department service was null");
+        }
+        List<Department> list = departmentService.findAll();
+        departmentObservableList = FXCollections.observableArrayList(list);
+        comboBoxDepartment.setItems(departmentObservableList);
+    }
+
+    private void initializeComboBoxDepartment() {
+
+        /*
+        Obviamente, precisamos inicializar a ComboBox do departamento para ser escolhido.
+        Esse método precisa ser chamado dentro do método initializeNodes().
+         */
+
+        Callback<ListView<Department>, ListCell<Department>> factory = lv -> new ListCell<Department>() {
+            @Override
+            protected void updateItem(Department item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getName());
+            }
+        };
+
+        comboBoxDepartment.setCellFactory(factory);
+        comboBoxDepartment.setButtonCell(factory.call(null));
+    }
+
+
+
 }
