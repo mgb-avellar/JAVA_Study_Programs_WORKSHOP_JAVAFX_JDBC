@@ -8,5 +8,4 @@ module Workshop.JavaFX.JDBC {
     opens model.dao;
     opens model.dao.impl;
 
-
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f80dc144-2973-4d61-a53a-17935787e1dc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/db.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/About.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/About.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/DepartmentForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/DepartmentForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/DepartmentList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/DepartmentList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/SellerForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/SellerForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/SellerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/out/production/Workshop_JavaFX_JDBC/gui/SellerList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/DepartmentFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/DepartmentFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/DepartmentListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/DepartmentListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/SellerFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/SellerFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/SellerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/application/SellerListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/db/DbIntegrityException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/db/DbIntegrityException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/About.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/About.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/DepartmentForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/DepartmentForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/DepartmentList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/DepartmentList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/SellerForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/SellerForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/SellerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/SellerList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/gui/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/DaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/DaoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/DepartmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/DepartmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/SellerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/SellerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/impl/DepartmentDaoJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/impl/DepartmentDaoJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/impl/SellerDaoJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/dao/impl/SellerDaoJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/services/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/services/DepartmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/services/SellerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_JavaFX_JDBC/src/model/services/SellerService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pdRjmFdX6qjmzxjeaz6WAsH14k" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f80dc144-2973-4d61-a53a-17935787e1dc" name="Default Changelist" comment="" />
+      <created>1615511118651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615511118651</updated>
+    </task>
+    <servers />
+  </component>
+</project>
